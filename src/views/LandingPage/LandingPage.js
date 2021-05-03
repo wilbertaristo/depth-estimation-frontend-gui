@@ -31,11 +31,18 @@ import axios from "axios";
 // Load sample images for live demo
 import ImagePicker from "react-image-picker";
 import "react-image-picker/dist/index.css";
+
+// Load images
 import sample1 from "assets/img/samples/sample1.jpg";
 import sample2 from "assets/img/samples/sample2.jpg";
 import sample3 from "assets/img/samples/sample3.jpg";
 import sample4 from "assets/img/samples/sample4.jpg";
 import sample5 from "assets/img/samples/sample5.jpg";
+import sample1_gt from "assets/img/samples/sample1_gt.jpg";
+import sample2_gt from "assets/img/samples/sample2_gt.jpg";
+import sample3_gt from "assets/img/samples/sample3_gt.jpg";
+import sample4_gt from "assets/img/samples/sample4_gt.jpg";
+import sample5_gt from "assets/img/samples/sample5_gt.jpg";
 
 const sampleList = [sample1, sample2, sample3, sample4, sample5];
 
@@ -63,6 +70,7 @@ export default function LandingPage(props) {
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedSamples, setSelectedSamples] = useState(undefined);
+  const [selectedGroundTruth, setSelectedGroundTruth] = useState(undefined);
 
   const [modelProcessing, setModelProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -87,6 +95,23 @@ export default function LandingPage(props) {
   const handlePickSample = (image) => {
     setErrorMessage("");
     setSelectedSamples(image);
+    switch (image.value) {
+      case 0:
+        setSelectedGroundTruth(sample1_gt);
+        break;
+      case 1:
+        setSelectedGroundTruth(sample2_gt);
+        break;
+      case 2:
+        setSelectedGroundTruth(sample3_gt);
+        break;
+      case 3:
+        setSelectedGroundTruth(sample4_gt);
+        break;
+      case 4:
+        setSelectedGroundTruth(sample5_gt);
+        break;
+    }
   };
 
   const srcToFile = (src, fileName, mimeType) => {
@@ -168,26 +193,72 @@ export default function LandingPage(props) {
             <h2 id="transition-modal-title">Live Demo</h2>
             <Divider />
             {resultImage.fetched ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  paddingTop: "20px",
-                }}
-              >
-                <img src={fetchedUrl} alt="result" />
-                <Button
-                  color="danger"
-                  size="lg"
-                  onClick={handleUploadAnother}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ marginTop: "20px" }}
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingTop: "20px",
+                  }}
                 >
-                  Back To Home
-                </Button>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <h5>Our Model's Prediction</h5>
+                      <img
+                        src={fetchedUrl}
+                        alt="result"
+                        width="640"
+                        height="480"
+                      />
+                    </div>
+                    <Divider
+                      orientation="vertical"
+                      style={{ margin: "0 10px" }}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <h5>Ground Truth</h5>
+                      <img
+                        src={selectedGroundTruth}
+                        alt="result"
+                        width="640"
+                        height="480"
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    color="danger"
+                    size="lg"
+                    onClick={handleUploadAnother}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ marginTop: "20px" }}
+                  >
+                    Back To Home
+                  </Button>
+                </div>
               </div>
             ) : (
               <div>
