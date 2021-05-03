@@ -36,7 +36,7 @@ export default function HeaderLinks(props) {
       </ListItem>
       <ListItem className={classes.listItem}>
         <Button
-          href="https://github.com/wilbertaristo/covid-lung-image-classifier"
+          href="https://github.com/kkkgabriel/Monocular-Depth-Estimation"
           color="transparent"
           target="_blank"
           className={classes.navLink}
