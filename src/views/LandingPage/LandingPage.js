@@ -245,6 +245,7 @@ export default function LandingPage(props) {
                         alt="result"
                         width="640"
                         height="480"
+                        style={{ padding: "58px 55px 51px" }}
                       />
                     </div>
                   </div>
